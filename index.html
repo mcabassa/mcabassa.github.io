@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Visual essay design on top rated series</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="https://unpkg.com/intersection-observer"></script>
+	<script src="https://unpkg.com/scrollama"></script>
+</head>
+<style type="text/css">
+	body, html {
+		top:0;
+		left:0;
+		margin:0;
+		color: white;
+		background-color:#121212;
+		font-family: "Montserrat", sans-serif;
+	}
+	nav	{
+		background-color:#121212;
+		position:fixed;
+		width:100%;
+		display:flex;
+		justify-content: center;
+		align-items:center;
+		border-bottom:0.05em solid black;
+		z-index:100;
+	}
+	.title {
+		height:50vh;
+		color:white;
+		background-color:black;
+/*		background-image:url('https://i.pinimg.com/originals/7f/43/1c/7f431c9e6991b1a83d79e359dc09c99d.gif');*/
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-position: left top;
+		background-size: auto 100%;
+	}
+	.title h1 {
+		font-family: "Playfair Display", serif;
+		font-size:5em;
+	}
+	.title h2 {
+		font-family: "Playfair Display", serif;
+		font-size:2em;
+		font-weight:400;
+	}
+	.header {
+		text-align:center;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		border:0.5em solid black;
+		padding:5% 0%;
+		animation: fadeIn 0.5s ease-in-out;
+	}
+	.header h1{
+		font-family: "Playfair Display", serif;
+		font-weight:800;
+		margin:0;
+	}
+	.header h2 {
+		margin:0;
+	}
+	.sticky {
+		float:right;
+		top:25%;
+		position:sticky;
+		width:50%;
+		display:inline-flex;
+		background-color:#121212;
+	}
+	.leftside{
+		background-color:black;
+		color:white;
+		width: 30%;
+    	padding: 5% 10% 5% 5%;
+	}
+	.progressive{
+		width:100%;
+		display:block;
+		margin-bottom:100%!important;
+	}
+	.end {
+		margin-bottom:5%!important;
+	}
+	#counter {
+		width:100%;
+		font-size:10em;
+		text-align:center;
+		margin:0;
+		padding:0%;
+		line-height:1em;
+		font-weight: 800;
+    letter-spacing: -0.05em;
+	}
+	#counter h2{
+		text-align:center;
+	}
+	.text {
+		margin:5%;
+		line-height:2em;
+		opacity:0;
+		margin-top:10%;
+		transition:0.5s ease-in-out;
+		background-color:#121212;
+		color:white;
+	}
+	.text h1 {
+		font-family: "Playfair Display", serif;
+		font-size:3em;
+		letter-spacing:-0.05em;
+		line-height:1em;
+		font-weight:900;
+		width:60%;
+	}
+	.text h2 {
+		font-weight:400;
+		font-size:2em;
+		font-style:italic;
+	}
+	.sticky h1 {
+		width:100%;
+		font-size:3em;
+	}
+	.sticky h2 {
+		font-size:0.8em;
+		text-transform:uppercase;
+		letter-spacing:0.1em;
+	}
+	.center_aligner {
+		overflow:none;
+		width:100%;
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		margin:2% 0%;
+	}
+	iframe {
+		border:0.5em solid black;
+		width:900px;
+		height:500px;
+	}
+	.tableauPlaceholder{
+		width:50%;
+		z-index:0;
+	}
+	img{
+		text-align:center;
+		margin:0%;
+		display:inline-block;
+		border:0.5em solid black;
+	}
+	.caption {
+		font-size:0.8em;
+		color:#666666;
+	}
+	.small {
+		width:30%;
+	}
+	.large {
+		width:80%;
+		display:block;
+	}
+	@keyframes fadeIn {
+		0%{
+			opacity:0;
+		}
+		100%{
+			opacity:1;
+		}
+	}
+	@media screen and (max-width:767px){
+		.sticky {
+	/*		bottom:0;*/
+			width:50%;
+			float:none;
+			margin:auto;
+			display:flex;
+			line-height:2em;
+		}
+		.sticky h1 {
+			font-size:2em;
+			line-height:2em;
+		}
+		.sticky h2 {
+			font-size:0.5em;
+		}
+		#counter {
+			font-size:5em;
+		}
+		.leftside {
+			width: 85%;
+    		padding: 5% 10% 5% 5%;
+		}
+		.small {
+			width:80%;
+		}
+		.title {
+			height:80vh;
+		}
+		.text h1 {
+			font-size:2.5em;
+			width:80%;
+		}
+		.text {
+			margin:10% 5%;
+		}
+		iframe {
+			height:300px;
+		}
+
+		.container {
+  		width: 100%;
+  		margin: 2rem auto; 
+  		font-size:0.6em;
+			font-style:italic;
+			text-align:center;
+		}
+
+		.gallery {
+		  display: grid;
+		  grid-template-columns: repeat(1, 1fr);
+		  grid-template-rows: repeat(4);
+		  grid-gap: 1.5rem; 
+		}
+
+		.gallery__img {
+		  width: 100%;
+		  height: 100%;
+		  object-fit: cover;
+		  display: block; 
+		}
+
+		.gallery__item--1 {
+	    grid-column-start: 1;
+	    grid-column-end: 2;
+	    grid-row-start: 1;
+	    grid-row-end: 2;
+		}
+
+		.gallery__item--2 {
+	    grid-column-start: 1;
+	    grid-column-end: 2;
+	    grid-row-start: 2;
+	    grid-row-end: 3;
+		}
+
+		.gallery__item--3 {
+		   grid-column-start: 1;
+		   grid-column-end: 2;
+		   grid-row-start: 3;
+		   grid-row-end: 4;
+		}
+
+		.gallery__item--4 {
+	    grid-column-start: 1;
+	    grid-column-end: 2;
+	    grid-row-start: 4;
+	    grid-row-end: 5;
+		}
+
+	}
+
+	.container {
+	  width: 100%;
+	  margin: 2rem auto; 
+	  font-size:0.6em;
+		font-style:italic;
+		text-align:center;
+	}
+
+	.gallery {
+	  display: grid;
+	  grid-template-columns: repeat(2, 1fr);
+	  grid-template-rows: repeat(2);
+	  grid-gap: 1.5rem; 
+	}
+
+	.gallery__img {
+	  width: 100%;
+	  height: 100%;
+	  object-fit: cover;
+	  display: block; 
+	}
+
+	.gallery__item--1 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+	}
+
+	.gallery__item--2 {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 1;
+	}
+
+	.gallery__item--3 {
+	    grid-column-start: 1;
+	    grid-column-end: 2;
+	    grid-row-start: 2;
+	    grid-row-end: 3;
+	}
+
+	.gallery__item--4 {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+	}
+
+</style>
+<body>
+
+<!-- nav -->
+<nav>
+	<h3>Visual essay</h3>
+</nav>
+
+<!-- text -->
+<div class='header title step'>
+	<div class='aligner'>
+		<h1>Top rated series</h1>
+		<h2>A first attempt to discover and present trends in IMDb data</h2>	
+	</div>
+</div>
+
+<div class='text'>
+	<p>Miquel Cabassa, December 2024</p>	
+</div>
+
+<div class='text'>
+	<h1>Facing confirmation bias</h1>
+	<p>
+		Since I discovered IMDb, every time I get ready to start watching a new series, I check the score on IMDb. I do it to ensure the time I will dedicate to doing nothing productive, at least its still quality time and I enjoy it to the fullest.
+	</p>
+	<p>
+		Within all this years I have spent watching series, I have developed some theories. These are some informal and speculative ideas I somehow would like to continue believe in, yet I have not been able to prove with the exercises that I describe below.
+	</p>
+	<p>
+		Here are my most useful everyday theories for choosing my next series:
+	</p>
+	<ol>
+		<li>
+			The more votes a production has, the more it tends to have a better score.
+		</li>
+		<li>
+			If it's a mainstream product and it's made for the general public, IMDb can be very accurate. If its an independent or non-English language production, IMDb's ratings won't be as accurate.
+		</li>
+		<li>
+			Everything below 7 it's not worth watching, unless its an independent or non-English language production.
+		</li>
+	</ol>
+	<p>
+		As the header introduces, I have not been able to prove any of these theories with the exercises that I present on this story, simply because the data I chose does not demonstrate it and, or because the dataset does not contain the information itself.
+	</p>
+	<p>
+		I know that all this sounds like excuses, but I am determined to continue iterating by expanding the data sources and by analyzing again the information in different ways. I'd like to be able to objectively and precisely demonstrate these opinions and do it in an attractive way. 
+<br>
+		This is another topic that I will discuss in the next chapter of this adventure :')
+	</p>
+</div>
+
+<!-- Gallery -->
+
+<div class='text'>
+		<h1>Visual narrative mockups</h1>	
+		<p>
+			At this stage, one of the first ideas  I came up with while exploring possible visualizations was a chard made of concentric circles. Here it was clearly a case of falling in love with the first idea that came to mind and then fitting it into the challenge I had set myself.
+		</p>
+		<p>
+			Another idea that I found more interesting, especially in the case of an interactive visualization, was the radar-type filter. I think it would be very interesting to be able to give some agency to the users by allowing them to filter and explore based on their genres preferences.
+		</p>
+		<p>
+			On the first case, I have already explored some techniques and I think I'll give D3.js a try.
+		</p>
+</div>
+
+<div class="container">
+
+	<div class="gallery">
+
+	  <figure class="gallery__item gallery__item--1">
+		  <img
+		    src="images/Notebook.jpg"
+		    alt="5 different sketches on a notebook."
+		    width=""
+		    height=""
+		    class="gallery__img">
+		  <figcaption>
+		    First sketckes exploring how to create my first Visual narrative mockup.
+		  </figcaption>
+		</figure>
+
+	  <figure class="gallery__item gallery__item--2">
+	    <img
+	    src="images/Genres of series - Small multiples v1.png"
+	    alt="Visual narrative mockup showing small multiples with concentric circles."
+	    width=""
+	    height=""
+	    class="gallery__img">
+		  <figcaption>
+		    First Visual narrative mockup version of Genres of series, using small multiples.
+		  </figcaption>
+		</figure>
+
+	  <figure class="gallery__item gallery__item--3">
+	    <img
+	    src="images/Genres of series - Small multiples v2.png"
+	    alt="Visual narrative mockup showing small multiples with concentric circles."
+	    width=""
+	    height=""
+	    class="gallery__img">
+		  <figcaption>
+		    Second version.
+		  </figcaption>
+		</figure>
+
+	  <figure class="gallery__item gallery__item--4">
+	    <img
+	    src="images/Genres of series - Small multiples v3.png"
+	    alt="Visual narrative mockup showing small multiples with concentric circles."
+	    width=""
+	    height=""
+	    class="gallery__img">
+		  <figcaption>
+		    Third version.
+		  </figcaption>
+		</figure>
+
+	</div>
+</div>
+
+
+<div class='text'>
+		<h1>Dashboard view</h1>	
+
+		<p>
+			In this first iteration with Tableau, I didn't get the expected results either, but I won't give up on continuing to explore.
+		</p>
+		<p>
+			The dataset I chose only contains productions with a score above 8. I think expanding it to series with a score above 7 will make other trends more evident.
+		</p>
+		<p>
+			I hope on this next iteration I can uncover some proper insights and some point clearly in the direction of my speculations.
+		</p>
+
+</div>
+	
+
+<!-- tableau public -->
+
+<div class='center_aligner'>
+
+	<!-- insert tableau public embed link below this line -->
+
+  <div class='tableauPlaceholder' id='viz1734199511393' style='position: relative'><noscript><a href='#'><img alt='Best series since 1950 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Be&#47;Bestseriessince1950v2&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='Bestseriessince1950v2&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Be&#47;Bestseriessince1950v2&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1734199511393');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='1000px';vizElement.style.height='827px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='1000px';vizElement.style.height='827px';} else { vizElement.style.width='100%';vizElement.style.height='977px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+
+</div>
+
+
+<div class='text'>
+	<h1>Interactive data story</h1>
+
+	<p>
+		Since I have not been successful in the data exploration that I have undertaken due to falling into a kind of sunk cost fallacy, I have decided to focus on exploring the role that genres play in the top 10 series and how they are combined.
+	</p>
+	<p>
+		Normally, or at least in my data set, there can be productions with between 1 and 3 genres. I find that it can be very interesting to introduce this variable into my decision process, although I suppose it plays a role in depending on which mood you you are in and not so much in the quality. Although now that I think about it, I've always thought that productions in the horror and comedy genres were worse.
+	</p>
+	<p>
+		In any case, it will be pending for this next iteration.
+	</p>
+
+</div>
+
+<!-- interactive embed, adjust the width and height as necessary, copy lines 155 to 157 to create a new interactive embed --> 
+<div class='center_aligner'>
+	<iframe src="interactive.html" frameBorder=0 scrolling=no></iframe>
+</div>
+
+
+
+</body>
+<script type="text/javascript">
+
+// instantiate the scrollama
+const scroller = scrollama();
+const scroller2 = scrollama();
+
+scroller
+  .setup({
+    step: ".text",
+    offset: 0.9,
+  })
+  .onStepEnter(response => {
+    // { element, index, direction }
+    el=response.element;
+    el.style.opacity=1;
+    el.style.marginTop='5%';    
+  })
+  .onStepExit(response => {
+    // { element, index, direction }  
+    el=response.element;
+  })
+  ;
+ // setup resize event
+window.addEventListener("resize", scroller.resize);
+
+scroller2
+  .setup({
+    step: ".progressive",
+    offset: 0.6,
+  })
+  .onStepEnter(response => {
+    // { element, index, direction }
+    el=response.element;
+    el.style.opacity=1;
+    if(response.index==0 || 1 || 2){
+    	stick('dynamic_sticky1')
+    	response.direction=='down'
+    	if(response.index==0){
+    		count(1,16,1,'Energy','after a 15 minute break','dynamic_sticky1')
+    	} else if (response.index==1){
+    		count(1,3.8,.1,'Engagement','average','dynamic_sticky1')
+    	} else if (response.index==2){
+    		count(0,0.9,.1,'Mood','increase','dynamic_sticky1')
+    	}
+    }
+  })
+  .onStepExit(response => {
+    // { element, index, direction }  
+    el=response.element;
+    console.log(response.index)
+    if(response.index==2){
+    	unstick('dynamic_sticky1')
+    }
+    el.style.opacity=0;
+  })
+  ;
+ // setup resize event
+window.addEventListener("resize", scroller2.resize);
+
+function count(number1, number2, step, title, label, location_id, prefix='+', suffix='%'){
+	target = document.querySelector('#'+location_id)
+	console.log(target)
+	let text=number1;
+
+	setInterval(function(){
+		if(text!=number2){
+			num = text+step
+			if(num % 1 == 0){
+				text = num
+			} else {
+				text = parseFloat(num.toFixed(2))
+			}
+			target.innerHTML="<div class='aligner'><h1>"+title+"</h1><div id='counter'>"+prefix+text+suffix+"</div><h2>"+label+"</h2></div>"
+		}
+	}, 30);
+}
+
+function stick(location_id){
+	target = document.querySelector('#'+location_id)
+	target.style.position="sticky"
+}
+
+function unstick(location_id){
+	target = document.querySelector('#'+location_id)
+	target.style.position="relative"
+}
+
+</script>
+
+</html>
