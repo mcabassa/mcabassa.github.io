@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top rated series</title>
+  <style>
+    /* Minimalist CSS with requested changes */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff; /* White background */
+      color: #0004ff; /* Blue text color */
+      line-height: 1.6;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background-color: #fff; /* White background */
+    }
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: normal;
+      text-align: center;
+      flex-grow: 1;
+    }
+    header .site-name {
+      font-size: 16px;
+      font-weight: bold;
+      margin-right: auto;
+    }
+    header .site-name a {
+      text-decoration: none;
+      color: #0004ff; /* Blue text color */
+    }
+    header .site-name a:hover {
+      text-decoration: underline;
+    }
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff; /* White background */
+    }
+    section {
+      margin-bottom: 20px;
+    }
+    section img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 10px 0;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 12px;
+      color: #0004ff; /* Blue text color */
+      margin-top: 40px;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 14px;
+      }
+      header h1 {
+        font-size: 20px;
+      }
+      main {
+        margin: 20px auto;
+        padding: 10px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="site-name"><a href="index.html">Miquel Cabassa</a></div>
+    <!-- <h1>Project Title Placeholder</h1> -->
+
+  </header>
+  <main>
+    <section>
+      <h1>Top rated series</h1>
+      <h2>Project Overview</h2>
+      <p>The idea behind this visualization was exploring and uncovering trends by genre, between the top rated series according to IMDb.</p>
+    </section>
+    <section>
+      <h2>Details</h2>
+      <p>The visualization consists in a series of small multiples, one for each genre, which should uncover any rating trends between them.</p>
+      <figure>
+        <img src="images/Notebook.jpg" alt="5 different sketches on a notebook.">
+        <figcaption>
+          First sketckes exploring how to create my first visual narrative mockup on this data set.
+        </figcaption>
+      </figure>
+      <figure>
+        <img src="images/Genres of series - Small multiples v1.png" alt="Visual narrative mockup showing small multiples with concentric circles.">
+        <figcaption>
+          First Visual narrative mockup version of Genres of series, using small multiples.
+        </figcaption>
+      </figure>
+    </section>
+    <section>
+      <h2>Outcome</h2>
+      <p>This charts could have the potential of both being attractive a and useful. I will continue to explore this path probably using D3.js.</p>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 Miquel Cabassa. All rights reserved.
+  </footer>
+</body>
+</html>
